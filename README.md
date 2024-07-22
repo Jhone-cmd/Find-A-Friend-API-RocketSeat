@@ -10,8 +10,8 @@ Nesse desafio desenvolveremos uma API para a adoção de animais, a FindAFriend 
  - [] Deve ser possível listar todos os pets disponíveis para adoção em uma cidade;
  - [] Deve ser possível filtrar pets por suas características;
  - [] Deve ser possível visualizar detalhes de um pet para adoção;
- - [] Deve ser possível se cadastra como uma ORG;
- - [] Deve ser possível realizar login como uma ORG;
+ - [X] Deve ser possível se cadastra como uma ORG;
+ - [X] Deve ser possível realizar login como uma ORG;
  
 ### RN (Regras de Negócio)
 
@@ -25,7 +25,7 @@ Nesse desafio desenvolveremos uma API para a adoção de animais, a FindAFriend 
 
 ### RNF (Requisitos Não Funcionais)
 
- - [] A senha do ORG precisa estar criptografada; 
+ - [X] A senha do ORG precisa estar criptografada; 
  - [] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
  - [] Todas as listas de dados precisam estar paginadas com 20 itens por página;
  - [] A ORG deve ser autenticado por um JWT (Json Web Token);

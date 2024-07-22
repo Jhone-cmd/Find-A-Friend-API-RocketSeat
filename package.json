@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@prisma/client": "5.17.0",
@@ -22,6 +24,8 @@
     "prisma": "5.17.0",
     "tsup": "8.2.2",
     "tsx": "4.16.2",
-    "typescript": "5.5.3"
+    "typescript": "5.5.3",
+    "vite-tsconfig-paths": "4.3.2",
+    "vitest": "2.0.4"
   }
 }
