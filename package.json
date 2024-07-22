@@ -1,0 +1,29 @@
+{
+  "name": "find-a-friend-api-solid",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Jhone-cmd/Find-A-Friend-API-RocketSeat.git",
+  "author": "Jhone-cmd <jhone.1941@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build"
+  },
+
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "bcryptjs": "^2.4.3",
+    "fastify": "^4.28.1",
+    "zod": "^3.23.8"
+  },
+
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^20.14.11",
+    "dotenv": "^16.4.5",
+    "prisma": "^5.17.0",
+    "tsup": "^8.2.2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3"
+  }  
+}
