@@ -9,11 +9,13 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
     async create(data: Prisma.OrganizationCreateInput) {
         const organization = {
             id: randomUUID(),
-            name: data.name,
+            responsibleName: data.responsibleName,
             email: data.email,
             passwordHash: data.passwordHash,
             cep: data.cep,
             address: data.address,
+            city: data.city,
+            state: data.state,
             phone: data.phone,
             createdAt: new Date(),
         }
@@ -26,6 +28,13 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
         const organization = this.organizations.find(item => item.email === email);
         if (!organization) return null;
 
+        return organization;
+    }
+
+    async findById(id: string) {
+        const organization = this.organizations.find(item => item.id === id);
+        if (!organization) return null;
+        
         return organization;
     }
 }

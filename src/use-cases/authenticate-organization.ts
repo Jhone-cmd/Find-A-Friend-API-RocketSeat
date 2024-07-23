@@ -1,11 +1,11 @@
 import { InvalidCredentialsError } from "@/errors/invalid-credentials-error";
-import { AuthenticateOrganizationRequest, AuthenticateOrganizationResponse, OrganizationRepository } from "@/interfaces/organization-interfaces";
+import { AuthenticateOrganizationUseCaseRequest, AuthenticateOrganizationUseCaseResponse, OrganizationRepository } from "@/interfaces/organization-interfaces";
 import { compare } from "bcryptjs";
 
 export class AuthenticateOrganizationUseCase {
     constructor(private organizationRepository: OrganizationRepository) {}
 
-    async execute({ email, password }: AuthenticateOrganizationRequest): Promise<AuthenticateOrganizationResponse> {
+    async execute({ email, password }: AuthenticateOrganizationUseCaseRequest): Promise<AuthenticateOrganizationUseCaseResponse> {
         
         const organization = await this.organizationRepository.findByEmail(email);
 

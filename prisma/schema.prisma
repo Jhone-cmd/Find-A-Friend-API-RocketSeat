@@ -14,14 +14,35 @@ datasource db {
 }
 
 model Organization {
-  id           String   @id @default(uuid())
-  name         String
-  email        String   @unique
-  passwordHash String   @map("password_hash")
-  cep          String
-  address      String
-  phone        String
-  createdAt    DateTime @default(now()) @map("created_at")
+  id              String   @id @default(uuid())
+  responsibleName String   @map("responsible_name")
+  email           String   @unique
+  passwordHash    String   @map("password_hash")
+  cep             String
+  address         String
+  city            String
+  state           String
+  phone           String
+  createdAt       DateTime @default(now()) @map("created_at")
+  pets            Pet[]
 
   @@map("organizations")
+}
+
+model Pet {
+  id           String  @id @default(uuid())
+  name         String
+  about        String
+  age          String
+  requirements String
+  independence String
+  environment  String
+  size         String
+  energy       String
+  photos       String?
+
+  organizationId String       @map("organization_id")
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  @@map("pets")
 }

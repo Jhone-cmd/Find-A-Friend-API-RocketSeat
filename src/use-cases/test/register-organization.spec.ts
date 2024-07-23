@@ -17,11 +17,13 @@ describe('Register Organization Use Case', () => {
 
     it('should register an organization', async () => {
         const { organization } = await sut.execute({
-            name: 'Organization 1',
+            responsibleName: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
+            city: 'Recife',
+            state: 'PB',
             phone: '99 99999999'
         });
 
@@ -30,21 +32,25 @@ describe('Register Organization Use Case', () => {
 
     it('should not be able to register organization with same email twice', async () => {
         await sut.execute({
-            name: 'Organization 1',
+            responsibleName: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
+            city: 'Recife',
+            state: 'PB',
             phone: '99 99999999'
         });
 
         await expect(() => 
             sut.execute({
-                name: 'Organization 1',
+                responsibleName: 'Organization 1',
                 email: 'organizationAdmin@email.com',
                 password: '123456',
                 cep: '00000000',
                 address: 'rua nada',
+                city: 'Recife',
+                state: 'PB',
                 phone: '99 99999999'
             })
         ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
@@ -52,11 +58,13 @@ describe('Register Organization Use Case', () => {
 
     it('should hash user password upon registration', async () => {
         const { organization } = await sut.execute({
-            name: 'Organization 1',
+            responsibleName: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
+            city: 'Recife',
+            state: 'PB',
             phone: '99 99999999'
         });
 

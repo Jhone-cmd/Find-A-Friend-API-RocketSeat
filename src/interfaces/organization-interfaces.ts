@@ -3,26 +3,29 @@ import { Organization, Prisma } from "@prisma/client";
 export interface OrganizationRepository {
     create(data: Prisma.OrganizationCreateInput): Promise<Organization>;
     findByEmail(email: string): Promise <Organization | null>;
+    findById(id: string): Promise <Organization | null>;
 }
 
-export interface RegisterOrganizationRequest {
-    name: string,
+export interface RegisterOrganizationUseCaseRequest {
+    responsibleName: string,
     email: string,
     password: string,
     cep: string,
     address: string,
+    city: string,
+    state: string,
     phone: string
 }  
 
-export interface RegisterOrganizationResponse {
+export interface RegisterOrganizationUseCaseResponse {
     organization: Organization
 }
 
-export interface AuthenticateOrganizationRequest {
+export interface AuthenticateOrganizationUseCaseRequest {
     email: string,
     password: string
 }
 
-export interface AuthenticateOrganizationResponse {
+export interface AuthenticateOrganizationUseCaseResponse {
     organization: Organization
 }

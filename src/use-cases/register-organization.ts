@@ -1,11 +1,11 @@
 import { EmailAlreadyExistsError } from "@/errors/email-already-exists-error";
-import { OrganizationRepository, RegisterOrganizationRequest, RegisterOrganizationResponse } from "@/interfaces/organization-interfaces";
+import { OrganizationRepository, RegisterOrganizationUseCaseRequest, RegisterOrganizationUseCaseResponse } from "@/interfaces/organization-interfaces";
 import { hash } from "bcryptjs";
 
 export class RegisterOrganizationUseCase {
     constructor(private organizationRepository: OrganizationRepository) {}
 
-    async execute({ name, email, password, cep, address, phone }: RegisterOrganizationRequest): Promise<RegisterOrganizationResponse> {
+    async execute({ responsibleName, email, password, cep, address, city, state, phone }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
         
         const passwordHash = await hash(password, 6);
 
@@ -14,7 +14,7 @@ export class RegisterOrganizationUseCase {
         if (organizationWithSameEmail) throw new EmailAlreadyExistsError();
 
         const organization = await this.organizationRepository.create({
-            name, email, passwordHash, cep, address, phone 
+            responsibleName, email, passwordHash, cep, address, city, state, phone 
         });
 
         return { organization };
