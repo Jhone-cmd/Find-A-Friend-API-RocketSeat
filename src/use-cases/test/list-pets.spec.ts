@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryPetRepository } from "@/repositories/in-memory/in-memory-pet-repository";
-import { ResourceNotFoundError } from "@/errors/resource-not-found-error";
 import { ListPetsUseCase } from "../list-pets";
 
 let petRepository: InMemoryPetRepository;
 let sut: ListPetsUseCase;
 
-describe('Create Pet Use Case', () => {
+describe('List Pets Use Case', () => {
 
     beforeEach(() => {        
         petRepository = new InMemoryPetRepository();        

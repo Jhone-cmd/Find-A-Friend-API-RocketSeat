@@ -37,9 +37,4 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
         
         return organization;
     }
-
-    // async findByCity(city: string) {
-    //     const organizations = this.organizations.filter(item => item.city === city)
-    //     return organizations;
-    // }
 }
