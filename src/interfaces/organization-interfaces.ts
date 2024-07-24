@@ -1,9 +1,10 @@
-import { Organization, Prisma } from "@prisma/client";
+import { Organization, Pet, Prisma } from "@prisma/client";
 
 export interface OrganizationRepository {
     create(data: Prisma.OrganizationCreateInput): Promise<Organization>;
     findByEmail(email: string): Promise <Organization | null>;
     findById(id: string): Promise <Organization | null>;
+    //findByCity(city: string): Promise<Pet[]>
 }
 
 export interface RegisterOrganizationUseCaseRequest {

@@ -15,11 +15,13 @@ describe('Authenticate Organization Use Case', () => {
         sut = new AuthenticateOrganizationUseCase(organizationRepository);
         
         await organizationRepository.create({
-            name: 'Organization 1',
+            responsibleName: 'Organization 1',
             email: 'organizationAdmin@email.com',
             passwordHash: await hash('123456', 6),
             cep: '00000000',
             address: 'rua nada',
+            city: 'Recife',
+            state: 'PB',
             phone: '99 99999999'
         });
     });

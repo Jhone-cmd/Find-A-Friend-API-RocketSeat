@@ -23,4 +23,19 @@ export class InMemoryPetRepository implements PetRepository {
         this.pets.push(pet);
         return pet;
     }
+
+    async findByManyPets(organizationId: string, page: number) {
+        const pets = this.pets.
+            filter(pet => pet.organizationId === organizationId)
+            .slice((page - 1) * 20, page * 20);
+
+        return pets;
+    }
+
+    async findById(id: string) {
+        const pet = this.pets.find(item => item.id === id);
+        if (!pet) return null;
+
+        return pet;
+    }
 }
