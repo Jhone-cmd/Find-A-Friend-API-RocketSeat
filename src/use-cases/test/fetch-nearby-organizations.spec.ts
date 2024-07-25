@@ -18,7 +18,8 @@ describe('Fetch Nearby Organizations Use Case', () => {
 
     it('should be able to fetch nearby organizations', async () => {
         await organizationRepository.create({
-            responsibleName: 'Organization Near',
+            responsibleName: 'Owner 1',
+            name: 'Organization Near',
             email: 'organizationAdmin@email.com',
             passwordHash: '123456',
             cep: '00000000',
@@ -31,7 +32,8 @@ describe('Fetch Nearby Organizations Use Case', () => {
         });
 
         await organizationRepository.create({
-            responsibleName: 'Organization Far',
+            responsibleName: 'Owner 1',
+            name: 'Organization Far',
             email: 'organizationAdmin@email.com',
             passwordHash: '123456',
             cep: '00000000',
@@ -51,7 +53,7 @@ describe('Fetch Nearby Organizations Use Case', () => {
 
         expect(organizations).toHaveLength(1);
         expect(organizations).toEqual([
-            expect.objectContaining({ responsibleName: 'Organization Near' })
+            expect.objectContaining({ name: 'Organization Near' })
         ])
     });
 });
