@@ -1,52 +1,51 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryPetRepository } from "@/repositories/in-memory/in-memory-pet-repository";
 import { ListPetsUseCase } from "../list-pets";
+import { InMemoryOrganizationRepository } from "@/repositories/in-memory/in-memory-organization-repository";
+import { hash } from "bcryptjs";
+import { randomUUID } from "node:crypto";
 
 let petRepository: InMemoryPetRepository;
+let organizationRepository: InMemoryOrganizationRepository;
 let sut: ListPetsUseCase;
 
 describe('List Pets Use Case', () => {
 
-    beforeEach(() => {        
-        petRepository = new InMemoryPetRepository();        
+    beforeEach(() => {   
+        organizationRepository = new InMemoryOrganizationRepository();     
+        petRepository = new InMemoryPetRepository(organizationRepository);        
         sut = new ListPetsUseCase(petRepository);
     });
 
     it('should be able to list pets', async () => {
         
-        for(let i = 1; i <= 22; i++) {
-            await petRepository.create({
-                name: `Pet ${i}`,
-                about: 'pet de teste',
-                age: 'child',
-                energy: 'high',
-                environment: 'broad',
-                requirements: 'requisito obrigatório',
-                size: 'small',
-                independence: 'high',
-                organizationId: 'org-1'
-            });
-    
-        }
+        const organization = await organizationRepository.create({
+            responsibleName: 'Organization 1',
+            email: 'organizationAdmin@email.com',
+            passwordHash: await hash('123456', 6),
+            cep: '00000000',
+            address: 'rua nada',
+            city: 'Recife',
+            state: 'PB',
+            phone: '99 99999999'
+        });
+        
+        await petRepository.create({
+            name: `Pet 1`,
+            about: 'pet de teste',
+            age: 'child',
+            energy: 'high',
+            environment: 'broad',
+            requirements: 'requisito obrigatório',
+            size: 'small',
+            independence: 'high',
+            organizationId: organization.id
+        });   
         
         const { pets } = await sut.execute({
-            organizationId: 'org-1',
-            page: 2,
+            city: organization.city
         });
-
-        expect(pets).toEqual([
-            expect.objectContaining({ name: 'Pet 21' }),
-            expect.objectContaining({ name: 'Pet 22' })
-        ]); 
-    });
-
-    it('should not be able to list pets', async () => {
-
-        const { pets } = await sut.execute({
-            organizationId: 'no-existing-id',
-            page: 1,
-        });
-
-        expect(pets).toEqual([]);
+        
+        expect(pets).toHaveLength(1);
     });
 });

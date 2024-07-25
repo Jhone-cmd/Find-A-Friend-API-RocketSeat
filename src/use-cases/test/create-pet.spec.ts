@@ -4,6 +4,7 @@ import { InMemoryPetRepository } from "@/repositories/in-memory/in-memory-pet-re
 import { CreatePetUseCase } from "../create-pet";
 import { hash } from "bcryptjs";
 import { ResourceNotFoundError } from "@/errors/resource-not-found-error";
+import { randomUUID } from "node:crypto";
 
 let petRepository: InMemoryPetRepository;
 let organizationRepository: InMemoryOrganizationRepository;
@@ -11,10 +12,9 @@ let sut: CreatePetUseCase;
 
 describe('Create Pet Use Case', () => {
 
-    beforeEach(() => {
-        
-        petRepository = new InMemoryPetRepository();
+    beforeEach(() => {        
         organizationRepository = new InMemoryOrganizationRepository();
+        petRepository = new InMemoryPetRepository(organizationRepository);
         sut = new CreatePetUseCase(petRepository, organizationRepository);
     });
 

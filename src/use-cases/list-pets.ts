@@ -3,9 +3,12 @@ import { ListPetsUseCaseRequest, ListPetsUseCaseResponse, PetRepository } from "
 export class ListPetsUseCase {
     constructor (private petRepository: PetRepository) {}
 
-    async execute({ organizationId, page }: ListPetsUseCaseRequest): Promise<ListPetsUseCaseResponse> {
+    async execute({ city, size, age, energy, independence, environment }: ListPetsUseCaseRequest): Promise<ListPetsUseCaseResponse> {
 
-        const pets = await this.petRepository.findByManyPets(organizationId, page);
+        const pets = await this.petRepository.findByManyPets(
+            { city, size, age, energy, independence, environment } 
+        );
+        
         return { pets }
     }
 }

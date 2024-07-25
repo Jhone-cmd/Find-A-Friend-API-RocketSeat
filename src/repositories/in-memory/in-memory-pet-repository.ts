@@ -1,39 +1,44 @@
-import { PetRepository } from "@/interfaces/pet-interfaces";
-import {  Pet, Prisma } from "@prisma/client";
+import { OrganizationRepository } from "@/interfaces/organization-interfaces";
+import { FiltersPets, PetRepository } from "@/interfaces/pet-interfaces";
+import { Pet, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
+import { InMemoryOrganizationRepository } from "./in-memory-organization-repository";
 
 export class InMemoryPetRepository implements PetRepository {
 
     public pets: Pet[] = [];
 
+    constructor(private organizationRepository: InMemoryOrganizationRepository) {}
+
     async create(data: Prisma.PetUncheckedCreateInput) {
         const pet = {
             id: randomUUID(),
-            name: data.name,
-            about: data.about,
-            age: data.age,
-            size: data.size,
-            energy: data.energy,
-            requirements: data.requirements,
-            environment: data.environment,
-            independence: data.independence,
             photos: data.photos ?? null,
-            organizationId: data.organizationId
+            ...data
         }
         this.pets.push(pet);
         return pet;
     }
 
-    async findByManyPets(organizationId: string, page: number) {
-        const pets = this.pets.
-            filter(pet => pet.organizationId === organizationId)
-            .slice((page - 1) * 20, page * 20);
+    async findByManyPets(query: FiltersPets) {
+        
+        const organizationByCity = this.organizationRepository.organizations
+            .filter((item) => item.city === query.city);
 
-        return pets;
+        const pet = this.pets
+            .filter((item) => organizationByCity.some((organization) => organization.id === item.organizationId))
+            .filter((item) => (item.age ? item.age === query.age : true))
+            .filter((item) => (item.size ? item.size === query.size : true))
+            .filter((item) => (item.energy ? item.energy === query.energy : true))
+            .filter((item) => (item.independence ? item.independence === query.independence : true))
+            .filter((item) => (item.environment ? item.environment === query.environment : true))
+            //.slice((page - 1) * 20, page * 20);
+
+        return pet;
     }
 
     async findById(id: string) {
-        const pet = this.pets.find(item => item.id === id);
+        const pet = this.pets.find((item) => item.id === id);
         if (!pet) return null;
 
         return pet;
