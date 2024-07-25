@@ -20,14 +20,17 @@ describe('Create Pet Use Case', () => {
 
     it('should be able to create pet', async () => {
         const organization = await organizationRepository.create({
-            responsibleName: 'Organization 1',
+            responsibleName: 'Owner 1',
+            name: 'Organization 1',
             email: 'organizationAdmin@email.com',
             passwordHash: await hash('123456', 6),
             cep: '00000000',
             address: 'rua nada',
             city: 'Recife',
             state: 'PB',
-            phone: '99 99999999'
+            phone: '99 99999999',
+            latitude: -16.0366592,
+            longitude: -48.0509952
         });
 
         const { pet } = await sut.execute({

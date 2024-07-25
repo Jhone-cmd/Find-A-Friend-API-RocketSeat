@@ -17,14 +17,17 @@ describe('Register Organization Use Case', () => {
 
     it('should register an organization', async () => {
         const { organization } = await sut.execute({
-            responsibleName: 'Organization 1',
+            responsibleName: 'Owner 1',
+            name: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
             city: 'Recife',
             state: 'PB',
-            phone: '99 99999999'
+            phone: '99 99999999',
+            latitude: -16.0366592,
+            longitude: -48.0509952
         });
 
         expect(organization.id).toEqual(expect.any(String));
@@ -32,40 +35,49 @@ describe('Register Organization Use Case', () => {
 
     it('should not be able to register organization with same email twice', async () => {
         await sut.execute({
-            responsibleName: 'Organization 1',
+            responsibleName: 'Owner 1',
+            name: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
             city: 'Recife',
             state: 'PB',
-            phone: '99 99999999'
+            phone: '99 99999999',
+            latitude: -16.0366592,
+            longitude: -48.0509952
         });
 
         await expect(() => 
             sut.execute({
-                responsibleName: 'Organization 1',
+                responsibleName: 'Owner 1',
+                name: 'Organization 1',
                 email: 'organizationAdmin@email.com',
                 password: '123456',
                 cep: '00000000',
                 address: 'rua nada',
                 city: 'Recife',
                 state: 'PB',
-                phone: '99 99999999'
+                phone: '99 99999999',
+                latitude: -16.0366592,
+                longitude: -48.0509952
             })
         ).rejects.toBeInstanceOf(EmailAlreadyExistsError);
     });
 
     it('should hash user password upon registration', async () => {
         const { organization } = await sut.execute({
-            responsibleName: 'Organization 1',
+            responsibleName: 'Owner 1',
+            name: 'Organization 1',
             email: 'organizationAdmin@email.com',
             password: '123456',
             cep: '00000000',
             address: 'rua nada',
             city: 'Recife',
             state: 'PB',
-            phone: '99 99999999'
+            phone: '99 99999999',
+            latitude: -16.0366592,
+            longitude: -48.0509952
         });
 
         const isPasswordCorrectlyHashed = await compare('123456', organization.passwordHash);

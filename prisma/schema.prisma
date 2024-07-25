@@ -16,6 +16,7 @@ datasource db {
 model Organization {
   id              String   @id @default(uuid())
   responsibleName String   @map("responsible_name")
+  name            String
   email           String   @unique
   passwordHash    String   @map("password_hash")
   cep             String
@@ -24,6 +25,8 @@ model Organization {
   state           String
   phone           String
   createdAt       DateTime @default(now()) @map("created_at")
+  latitude        Decimal
+  longitude       Decimal
   pets            Pet[]
 
   @@map("organizations")

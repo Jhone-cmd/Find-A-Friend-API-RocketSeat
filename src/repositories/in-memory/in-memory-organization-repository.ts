@@ -1,4 +1,5 @@
-import { OrganizationRepository } from "@/interfaces/organization-interfaces";
+import { FilterParamsNearbyOrganizations, OrganizationRepository } from "@/interfaces/organization-interfaces";
+import { getDistanceBetweenCoordinates } from "@/utils/get-distance-between-coordinates";
 import { Prisma, Organization } from "@prisma/client";
 import { randomUUID } from "node:crypto";
 
@@ -10,6 +11,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
         const organization = {
             id: randomUUID(),
             responsibleName: data.responsibleName,
+            name: data.name,
             email: data.email,
             passwordHash: data.passwordHash,
             cep: data.cep,
@@ -17,6 +19,8 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
             city: data.city,
             state: data.state,
             phone: data.phone,
+            latitude: new Prisma.Decimal(data.latitude.toString()),
+            longitude: new Prisma.Decimal(data.longitude.toString()),
             createdAt: new Date(),
         }
 
@@ -36,5 +40,19 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
         if (!organization) return null;
         
         return organization;
+    }
+
+    async fetchNearbyOrganizations(params: FilterParamsNearbyOrganizations) {
+        const organizations = this.organizations
+            .filter((item) => {
+                const distance = getDistanceBetweenCoordinates(
+                    { latitude: params.latitude, longitude: params.longitude },
+                    { latitude: item.latitude.toNumber(), longitude: item.longitude.toNumber() }
+                )
+
+                return distance < 10;
+            })
+
+        return organizations;
     }
 }

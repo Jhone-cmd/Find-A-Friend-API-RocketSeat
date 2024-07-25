@@ -5,7 +5,7 @@ import { hash } from "bcryptjs";
 export class RegisterOrganizationUseCase {
     constructor(private organizationRepository: OrganizationRepository) {}
 
-    async execute({ responsibleName, email, password, cep, address, city, state, phone }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
+    async execute({ responsibleName, name, email, password, cep, address, city, state, phone, latitude, longitude }: RegisterOrganizationUseCaseRequest): Promise<RegisterOrganizationUseCaseResponse> {
         
         const passwordHash = await hash(password, 6);
 
@@ -14,7 +14,7 @@ export class RegisterOrganizationUseCase {
         if (organizationWithSameEmail) throw new EmailAlreadyExistsError();
 
         const organization = await this.organizationRepository.create({
-            responsibleName, email, passwordHash, cep, address, city, state, phone 
+            responsibleName, name, email, passwordHash, cep, address, city, state, phone, latitude, longitude 
         });
 
         return { organization };
