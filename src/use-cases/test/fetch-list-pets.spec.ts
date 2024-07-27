@@ -17,7 +17,7 @@ describe('List Pets Use Case', () => {
         sut = new FetchListPetsUseCase(petRepository);
     });
 
-    it.skip('should be able to list pets', async () => {
+    it('should be able to list pets', async () => {
         
         const organization = await organizationRepository.create({
             responsibleName: 'Owner 1',

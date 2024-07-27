@@ -18,7 +18,7 @@ export class PrismaPetRepository implements PetRepository {
             where: { city: query.city }
         });
 
-        const pet = await prisma.pet.findMany({
+        const pets = await prisma.pet.findMany({
             where: { 
                 organizationId: organizationByCity?.id,
                 OR: [
@@ -31,7 +31,7 @@ export class PrismaPetRepository implements PetRepository {
             }
         });
     
-        return pet;
+        return pets;
     }
 
     async findById(id: string) {
