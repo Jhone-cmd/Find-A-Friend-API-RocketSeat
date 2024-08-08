@@ -27,11 +27,11 @@ export class InMemoryPetRepository implements PetRepository {
 
         const pet = this.pets
             .filter((item) => organizationByCity.some((organization) => organization.id === item.organizationId))
-            .filter((item) => (item.age ? item.age === query.age : true))
-            .filter((item) => (item.size ? item.size === query.size : true))
-            .filter((item) => (item.energy ? item.energy === query.energy : true))
-            .filter((item) => (item.independence ? item.independence === query.independence : true))
-            .filter((item) => (item.environment ? item.environment === query.environment : true))
+            .filter((item) => (query.age ? item.age === query.age : true))
+            .filter((item) => (query.size ? item.size === query.size : true))
+            .filter((item) => (query.energy ? item.energy === query.energy : true))
+            .filter((item) => (query.independence ? item.independence === query.independence : true))
+            .filter((item) => (query.environment ? item.environment === query.environment : true))
             //.slice((page - 1) * 20, page * 20);
 
         return pet;

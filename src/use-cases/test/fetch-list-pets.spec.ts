@@ -43,12 +43,24 @@ describe('List Pets Use Case', () => {
             size: 'small',
             independence: 'high',
             organizationId: organization.id
-        });   
+        });  
+        
+        await petRepository.create({
+            name: `Pet 2`,
+            about: 'pet de teste',
+            age: 'child',
+            energy: 'high',
+            environment: 'broad',
+            requirements: 'requisito obrigatório',
+            size: 'small',
+            independence: 'high',
+            organizationId: organization.id
+        });  
         
         const { pets } = await sut.execute({
             city: organization.city
         });
         
-        expect(pets).toHaveLength(1);
+        expect(pets).toHaveLength(2);
     });
 });
