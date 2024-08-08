@@ -42,7 +42,8 @@ describe('Create Pet Use Case', () => {
             requirements: 'requisito obrigatório',
             size: 'small',
             independence: 'high',
-            organizationId: organization.id
+            organizationId: organization.id,
+            photos: null
         });
 
         expect(pet.id).toEqual(expect.any(String)); 
@@ -60,6 +61,7 @@ describe('Create Pet Use Case', () => {
                 requirements: 'requisito obrigatório',
                 size: 'small',
                 independence: 'high',
+                photos: null,
                 organizationId: 'no-exists-id'
             })
         ).rejects.toBeInstanceOf(ResourceNotFoundError);

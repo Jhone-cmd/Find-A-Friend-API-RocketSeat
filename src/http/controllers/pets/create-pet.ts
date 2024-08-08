@@ -3,6 +3,9 @@ import { makeCreatePetUseCase } from "@/use-cases/factories/make-create-pet";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
+interface Filename {
+    path: string
+}
 
 export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const createPetParamsSchema = z.object({
@@ -22,10 +25,12 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const { orgId } = createPetParamsSchema.parse(request.params);
     const { name, about, age, size, energy, environment, independence, requirements } = createPetBodySchema.parse(request.body);
 
+    const photos = request.file.path;
+    
     try {
        const createPetUseCase = makeCreatePetUseCase();
        await createPetUseCase.execute({
-            name, about, age, size, energy, environment, independence, requirements, 
+            name, about, age, size, energy, environment, independence, requirements, photos: photos ?? null,
             organizationId: orgId
 
        })

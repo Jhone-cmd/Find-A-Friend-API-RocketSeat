@@ -14,10 +14,6 @@ export class PrismaPetRepository implements PetRepository {
 
     async findByManyPets(query: FiltersPets) {
         
-        const organizationByCity = await prisma.organization.findFirst({
-            where: { city: query.city }
-        });
-
         const pets = await prisma.pet.findMany({
             where: { 
                 age: query.age,
