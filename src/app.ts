@@ -6,7 +6,6 @@ import { env } from "./env/schema";
 import { petsRoutes } from "./http/controllers/pets/routes";
 import { errorHandler } from "./error-handler";
 import multer from "fastify-multer";
-import fastifyMultipart from "@fastify/multipart";
 
 export const app = fastify();
 
@@ -21,8 +20,7 @@ app.register(jwt, {
     },
 });
 
-
-app.register(fastifyMultipart);
+app.register(multer.contentParser)
 
 app.register(organizationsRoutes);
 app.register(petsRoutes);

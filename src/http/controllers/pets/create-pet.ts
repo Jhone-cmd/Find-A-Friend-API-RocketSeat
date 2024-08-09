@@ -21,16 +21,12 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const { orgId } = createPetParamsSchema.parse(request.params);
     const { name, about, age, size, energy, environment, independence, requirements } = createPetBodySchema.parse(request.body);
 
-    
-    const data = await request.file();
-    if (!data) return console.log('falhou upload');
-    
-    const  filename = data.filename;
-    const photos = ''
-    console.log(filename);   
-  
-    
+    let files = request.files;
+    let photos = files.map((file) => ({ url: file.path }));
+          
     try {
+
+        
        const createPetUseCase = makeCreatePetUseCase();
        await createPetUseCase.execute({
             name, about, age, size, energy, environment, independence, requirements, photos: photos ?? null,

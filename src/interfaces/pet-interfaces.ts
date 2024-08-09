@@ -25,7 +25,7 @@ export interface CreatePetUseCaseRequest {
     energy: string,
     independence: string,
     organizationId: string,
-    photos: string | null
+    photos: string[] | null 
 }
 
 export interface CreatePetUseCaseResponse {
