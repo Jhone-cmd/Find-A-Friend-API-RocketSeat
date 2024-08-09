@@ -3,10 +3,6 @@ import { makeCreatePetUseCase } from "@/use-cases/factories/make-create-pet";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
-interface Filename {
-    path: string
-}
-
 export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const createPetParamsSchema = z.object({
         orgId: z.string().uuid()
@@ -25,7 +21,14 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const { orgId } = createPetParamsSchema.parse(request.params);
     const { name, about, age, size, energy, environment, independence, requirements } = createPetBodySchema.parse(request.body);
 
-    const photos = request.file.path;
+    
+    const data = await request.file();
+    if (!data) return console.log('falhou upload');
+    
+    const  filename = data.filename;
+    const photos = ''
+    console.log(filename);   
+  
     
     try {
        const createPetUseCase = makeCreatePetUseCase();

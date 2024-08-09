@@ -6,6 +6,7 @@ import { env } from "./env/schema";
 import { petsRoutes } from "./http/controllers/pets/routes";
 import { errorHandler } from "./error-handler";
 import multer from "fastify-multer";
+import fastifyMultipart from "@fastify/multipart";
 
 export const app = fastify();
 
@@ -16,11 +17,12 @@ app.register(cors, {
 app.register(jwt, {
     secret: env.JWT_SECRET,
     sign: {
-        expiresIn: '10m'
+        expiresIn: '7d'
     },
 });
 
-app.register(multer.contentParser);
+
+app.register(fastifyMultipart);
 
 app.register(organizationsRoutes);
 app.register(petsRoutes);

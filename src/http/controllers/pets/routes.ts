@@ -8,7 +8,7 @@ import { upload } from "@/lib/multer";
 export async function petsRoutes(app: FastifyInstance) {
     
     app.post('/organization/:orgId/create',{ onRequest: [verifyJwt], 
-        preHandler: [ upload.single('photos') ]  }, createPet);
+        preHandler: [ upload.array('photos', 10) ]  }, createPet);
 
     app.get('/pet/:id', getDetailsPet);
     app.get('/pets', fetchListPets);
