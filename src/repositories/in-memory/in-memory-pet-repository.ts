@@ -13,7 +13,7 @@ export class InMemoryPetRepository implements PetRepository {
     async create(data: Prisma.PetUncheckedCreateInput) {
         const pet = {
             id: randomUUID(),
-            photos: data.photos ?? null,
+            photo: data.photo ?? null,
             ...data
         }
         this.pets.push(pet);
@@ -28,6 +28,7 @@ export class InMemoryPetRepository implements PetRepository {
         const pet = this.pets
             .filter((item) => organizationByCity.some((organization) => organization.id === item.organizationId))
             .filter((item) => (query.age ? item.age === query.age : true))
+            .filter((item) => (query.type ? item.type === query.type : true))
             .filter((item) => (query.size ? item.size === query.size : true))
             .filter((item) => (query.energy ? item.energy === query.energy : true))
             .filter((item) => (query.independence ? item.independence === query.independence : true))
@@ -39,6 +40,13 @@ export class InMemoryPetRepository implements PetRepository {
 
     async findById(id: string) {
         const pet = this.pets.find((item) => item.id === id);
+        if (!pet) return null;
+
+        return pet;
+    }
+
+    async findByName(name: string) {
+        const pet = this.pets.find((item) => item.name === name);
         if (!pet) return null;
 
         return pet;

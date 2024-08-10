@@ -2,6 +2,7 @@ import { Pet, Prisma } from "@prisma/client";
 
 export interface PetRepository {
     create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>;
+    findByName(name: string): Promise<Pet  | null>;
     findByManyPets(query: FiltersPets): Promise<Pet[]>;
     findById(id: string): Promise<Pet | null>;
 }
@@ -9,23 +10,30 @@ export interface PetRepository {
 export interface FiltersPets {
     city: string,
     age?: string,
+    type?: string,
     size?: string,
     energy?: string,
     independence?: string,
     environment?: string,
 }
 
+export interface FilePath {
+    url: string | null
+}
+
 export interface CreatePetUseCaseRequest {
     name: string,
     about: string,
     age: string,
+    type: string,
     size: string,
     environment: string,
     requirements: string,
     energy: string,
     independence: string,
     organizationId: string,
-    photos: string[] | null 
+    images: FilePath[],
+    photo: string | null 
 }
 
 export interface CreatePetUseCaseResponse {
@@ -43,6 +51,7 @@ export interface DetailsPetUseCaseResponse {
 export interface ListPetsUseCaseRequest {
     city: string,
     age?: string,
+    type?: string,
     size?: string,
     energy?: string,
     independence?: string,

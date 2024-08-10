@@ -37,15 +37,28 @@ model Pet {
   name         String
   about        String
   age          String
+  type         String
   requirements String
   independence String
   environment  String
   size         String
   energy       String
-  photos       String?
+  photo        String?
+  images       Image[]
 
   organizationId String       @map("organization_id")
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
 
   @@map("pets")
+}
+
+model Image {
+  id  String @id @default(uuid())
+  url String
+
+  petId String
+
+  image Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@map("images")
 }

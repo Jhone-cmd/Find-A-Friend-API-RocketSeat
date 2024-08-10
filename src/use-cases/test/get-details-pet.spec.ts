@@ -36,6 +36,7 @@ describe('Create Pet Use Case', () => {
             name: `Pet 1`,
             about: 'pet de teste',
             age: 'child',
+            type: 'dog',
             energy: 'high',
             environment: 'broad',
             requirements: 'requisito obrigatório',

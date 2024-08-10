@@ -3,10 +3,10 @@ import { ListPetsUseCaseRequest, ListPetsUseCaseResponse, PetRepository } from "
 export class FetchListPetsUseCase {
     constructor (private petRepository: PetRepository) {}
 
-    async execute({ city, size, age, energy, independence, environment }: ListPetsUseCaseRequest): Promise<ListPetsUseCaseResponse> {
+    async execute({ city, size, age, type, energy, independence, environment }: ListPetsUseCaseRequest): Promise<ListPetsUseCaseResponse> {
 
         const pets = await this.petRepository.findByManyPets(
-            { city, size, age, energy, independence, environment } 
+            { city, size, age, type, energy, independence, environment } 
         );
         
         return { pets }

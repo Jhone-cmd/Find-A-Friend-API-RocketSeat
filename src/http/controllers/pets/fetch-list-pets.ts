@@ -10,17 +10,18 @@ export async function fetchListPets(request: FastifyRequest, reply: FastifyReply
         city: z.string(),
         size: z.string().optional(), 
         age: z.string().optional(), 
+        type: z.string().optional(),
         energy: z.string().optional(), 
         independence: z.string().optional(), 
         environment: z.string().optional()
     });
 
-    const { city, age, size, energy, environment, independence } = fetchListPetsQuerySchema.parse(request.query);
+    const { city, age, type, size, energy, environment, independence } = fetchListPetsQuerySchema.parse(request.query);
 
     try {       
         const fetchListPetsUseCase = makeFetchListPetsUseCase();
         const pets = await fetchListPetsUseCase.execute({ 
-            city, age, size, energy, environment, independence
+            city, age, type, size, energy, environment, independence
         });
 
         return pets;

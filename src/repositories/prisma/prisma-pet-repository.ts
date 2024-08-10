@@ -17,6 +17,7 @@ export class PrismaPetRepository implements PetRepository {
         const pets = await prisma.pet.findMany({
             where: { 
                 age: query.age,
+                type: query.type,
                 size: query.size,
                 energy: query.energy,
                 environment: query.environment,
@@ -35,6 +36,15 @@ export class PrismaPetRepository implements PetRepository {
     async findById(id: string) {
         const pet = await prisma.pet.findUnique({
             where: { id }
+        });
+        if (!pet) return null;
+
+        return pet;
+    }
+
+    async findByName(name: string) {
+        const pet = await prisma.pet.findFirst({
+            where: { name }
         });
         if (!pet) return null;
 
