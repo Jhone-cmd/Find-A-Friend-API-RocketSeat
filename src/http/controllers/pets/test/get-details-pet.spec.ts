@@ -18,7 +18,7 @@ describe('Get Details Pet e2e', () => {
         const { id } = await createAndAuthenticateOrganizationAndPet(app);
     
         const response = await request(app.server)
-            .get(`/pet/${id}`)
+            .get(`/pets/${id}`)
             .send();        
 
         expect(response.statusCode).toEqual(200);

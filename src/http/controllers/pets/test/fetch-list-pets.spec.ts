@@ -18,7 +18,7 @@ describe('Fetch List Pets e2e', () => {
         const { orgId, token, city,  } = await createAndAuthenticateOrganizationAndPet(app);
 
         await request(app.server)
-        .post(`/organization/${orgId}/create`)
+        .post(`/organization/${orgId}/pets/create`)
         .set('Authorization', `Bearer ${token}`)
         .send({
             name: `Pet 2`,
