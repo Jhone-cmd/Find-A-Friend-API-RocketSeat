@@ -25,10 +25,10 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const { orgId } = createPetParamsSchema.parse(request.params);
     const { name, about, age, type, size, energy, environment, independence, requirements } = createPetBodySchema.parse(request.body);
 
-    const images: FilePath[] = request.files
-        .map((file) => ({ url: file.path ?? ""}));
+    const images: FilePath[] = request.files ? request.files
+        .map((file) => ({ url: file.path ?? ""})) : [];
     
-    const photo = images[0].url;
+    const photo = images.length > 0 ? images[0].url : null;
 
     try {
        

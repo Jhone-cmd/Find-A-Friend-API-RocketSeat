@@ -22,6 +22,6 @@ describe('Get Details Pet e2e', () => {
             .send();        
 
         expect(response.statusCode).toEqual(200);
-        expect(response.body.pet).toEqual(expect.objectContaining({ name: 'Pet 1' }));
+        expect(response.body.pet).toEqual(expect.objectContaining({ name: 'Pet test' }));
     });
 });

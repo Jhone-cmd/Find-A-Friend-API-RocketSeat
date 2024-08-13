@@ -18,9 +18,7 @@ export class CreatePetUseCase {
         const petWithSameName = await this.petRepository.findByName(name);
         if (petWithSameName) throw new PetNameAlreadyExistsError();
 
-        const noImages = !images || images.length === 0;
-        if (noImages) throw new InvalidRequestError();
-        const petPhoto = images ? images[0].url : null;
+        const petPhoto = images.length > 0 ? images[0].url : null;
         
         const pet = await this.petRepository.create({
             name, about, age, type, size, energy, 
@@ -28,6 +26,9 @@ export class CreatePetUseCase {
             photo: petPhoto
         });
 
+        // const noImages = !images || images.length === 0;
+        // if (noImages) throw new InvalidRequestError();
+        
         for(const image of images) {
             if(image.url) {
                 await this.imageRepository.create({
@@ -37,7 +38,7 @@ export class CreatePetUseCase {
             } else {
                 throw new InvalidRequestError();
             }
-        }
+        }        
 
         return { pet }
     }

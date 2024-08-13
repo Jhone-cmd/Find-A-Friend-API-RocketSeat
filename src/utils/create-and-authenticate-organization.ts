@@ -20,27 +20,12 @@ export async function createAndAuthenticateOrganizationAndPet(app: FastifyInstan
         }
     });
 
-    const org2 = await prisma.organization.create({
-        data: {
-            responsibleName: 'Admin',
-            name: 'Organization 2',
-            email: 'organizationAdmin2@email.com',
-            passwordHash: await hash("12345678", 6),
-            cep: '12345678',
-            address: 'rua nada',
-            city: 'Rio de Janeiro',
-            state: 'PB',
-            phone: ' +55 99 99999999',
-            latitude: -16.0366592,
-            longitude: -48.0509952
-        }
-    });
-
     const pet = await prisma.pet.create({
         data: {
-            name: 'Pet 1',
+            name: 'Pet test',
             about: 'pet de teste',
             age: 'child',
+            type: 'dog',
             energy: 'high',
             environment: 'broad',
             requirements: 'requisito obrigatório',
@@ -48,7 +33,35 @@ export async function createAndAuthenticateOrganizationAndPet(app: FastifyInstan
             independence: 'high',
             organizationId: org1.id
         }
-    });
+    })
+
+    // const pets = await prisma.pet.createMany({
+    //     data: [
+    //     {
+    //         name: 'Pet 1',
+    //         about: 'pet de teste',
+    //         age: 'child',
+    //         type: 'dog',
+    //         energy: 'high',
+    //         environment: 'broad',
+    //         requirements: 'requisito obrigatório',
+    //         size: 'small',
+    //         independence: 'high',
+    //         organizationId: org1.id
+    //     }, 
+    //     {
+    //         name: 'Pet 2',
+    //         about: 'pet de teste',
+    //         age: 'child',
+    //         type: 'dog',
+    //         energy: 'high',
+    //         environment: 'broad',
+    //         requirements: 'requisito obrigatório',
+    //         size: 'small',
+    //         independence: 'high',
+    //         organizationId: org1.id
+    //     }]
+    // });
 
     const authResponse = await request(app.server)
         .post('/sessions')
@@ -60,11 +73,9 @@ export async function createAndAuthenticateOrganizationAndPet(app: FastifyInstan
     
         
     const orgId: string = org1.id;
-    const orgId2: string = org2.id;
-    const { city } = org1;
-    const { city: city2 } = org2;
+    const { city } = org1
     const { id, age, size, energy, environment, independence } = pet;
     const { token } = authResponse.body;
 
-    return { orgId, orgId2, token, id, city, city2, age, size, energy, environment, independence }
+    return { orgId, token, id, city,  age, size, energy, environment, independence }
 }

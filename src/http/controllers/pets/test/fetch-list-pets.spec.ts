@@ -15,34 +15,34 @@ describe('Fetch List Pets e2e', () => {
 
 
     it('should be able to list pets', async () => {
-        const { orgId, token, city,  } = await createAndAuthenticateOrganizationAndPet(app);
+        const { orgId, token, city } = await createAndAuthenticateOrganizationAndPet(app);
 
         await request(app.server)
-        .post(`/organization/${orgId}/pets/create`)
-        .set('Authorization', `Bearer ${token}`)
-        .send({
-            name: `Pet 2`,
-            about: 'pet de teste',
-            age: 'child',
-            energy: 'high',
-            environment: 'broad',
-            requirements: 'requisito obrigatório',
-            size: 'small',
-            independence: 'high',
-            organizationId: orgId
-        });
+            .post(`/organization/${orgId}/pets/create`)
+            .set('Authorization', `Bearer ${token}`)
+            .send({
+                name: 'Pet test 2',
+                about: 'pet de teste',
+                age: 'child',
+                type: 'dog',
+                energy: 'high',
+                environment: 'broad',
+                requirements: 'requisito obrigatório',
+                size: 'small',
+                independence: 'high',
+            });
 
         const response = await request(app.server)
             .get('/pets')
             .query({
                 city,
             })
-            .send()
+            .send()            
         
         expect(response.status).toEqual(200);
         expect(response.body.pets).toEqual([
-            expect.objectContaining({ name: 'Pet 1' }),
-            expect.objectContaining({ name: 'Pet 2' })
+            expect.objectContaining({ name: 'Pet test' }),
+            expect.objectContaining({ name: 'Pet test 2' })
         ])
 
     });
