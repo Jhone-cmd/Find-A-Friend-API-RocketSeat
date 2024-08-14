@@ -12,7 +12,7 @@ export class PrismaPetRepository implements PetRepository {
         return pet;
     }
 
-    async findByManyPets(query: FiltersPets) {
+    async findByManyPets(query: FiltersPets, page: number) {
         
         const pets = await prisma.pet.findMany({
             where: { 
@@ -27,7 +27,9 @@ export class PrismaPetRepository implements PetRepository {
                         mode: 'insensitive'
                     }
                 }
-            }
+            },
+            take: 20,
+            skip: (page - 1) * 20
         });
     
         return pets;

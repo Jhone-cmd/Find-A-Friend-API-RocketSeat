@@ -27,7 +27,7 @@ describe('Create Pet e2e', () => {
                 type: 'dog',
                 energy: 'high',
                 environment: 'broad',
-                requirements: 'requisito obrigatório',
+                requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
                 size: 'small',
                 independence: 'high',
             });

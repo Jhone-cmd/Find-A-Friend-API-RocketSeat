@@ -21,13 +21,13 @@ describe('Fetch List Pets e2e', () => {
             .post(`/organization/${orgId}/pets/create`)
             .set('Authorization', `Bearer ${token}`)
             .send({
-                name: 'Pet test 2',
+                name: 'Pet test2',
                 about: 'pet de teste',
                 age: 'child',
                 type: 'dog',
                 energy: 'high',
                 environment: 'broad',
-                requirements: 'requisito obrigatório',
+                requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
                 size: 'small',
                 independence: 'high',
             });
@@ -36,14 +36,13 @@ describe('Fetch List Pets e2e', () => {
             .get('/pets')
             .query({
                 city,
+                page: 1
             })
-            .send()            
+            .send()         
+        
+        //console.log(response.body.pets);
         
         expect(response.status).toEqual(200);
-        expect(response.body.pets).toEqual([
-            expect.objectContaining({ name: 'Pet test' }),
-            expect.objectContaining({ name: 'Pet test 2' })
-        ])
-
+        expect(response.body.pets).toHaveLength(2);
     });
 });

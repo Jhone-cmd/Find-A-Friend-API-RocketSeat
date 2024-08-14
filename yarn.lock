@@ -65,6 +65,14 @@
   dependencies:
     text-decoding "^1.0.0"
 
+"@fastify/cookie@9.3.1":
+  version "9.3.1"
+  resolved "https://registry.npmjs.org/@fastify/cookie/-/cookie-9.3.1.tgz"
+  integrity sha512-h1NAEhB266+ZbZ0e9qUE6NnNR07i7DnNXWG9VbbZ8uC6O/hxHpl+Zoe5sw1yfdZ2U6XhToUGDnzQtWJdCaPwfg==
+  dependencies:
+    cookie-signature "^1.1.0"
+    fastify-plugin "^4.0.0"
+
 "@fastify/cors@9.0.1":
   version "9.0.1"
   resolved "https://registry.npmjs.org/@fastify/cors/-/cors-9.0.1.tgz"
@@ -710,6 +718,11 @@ consola@^3.2.3:
   version "3.2.3"
   resolved "https://registry.npmjs.org/consola/-/consola-3.2.3.tgz"
   integrity sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==
+
+cookie-signature@^1.1.0:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.1.tgz"
+  integrity sha512-78KWk9T26NhzXtuL26cIJ8/qNHANyJ/ZYrmEXFzUmhZdjpBv+DlWlOANRTGBt48YcyslsLrj0bMLFTmXvLRCOw==
 
 cookie@^0.6.0:
   version "0.6.0"

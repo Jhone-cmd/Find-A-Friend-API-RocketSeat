@@ -27,5 +27,5 @@ Nesse desafio desenvolveremos uma API para a adoção de animais, a FindAFriend 
 
  - [X] A senha do ORG precisa estar criptografada; 
  - [X] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
- - [] Todas as listas de dados precisam estar paginadas com 20 itens por página;
+ - [X] Todas as listas de dados precisam estar paginadas com 20 itens por página;
  - [X] A ORG deve ser autenticado por um JWT (Json Web Token);

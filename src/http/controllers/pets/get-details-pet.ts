@@ -15,8 +15,8 @@ export async function getDetailsPet(request: FastifyRequest, reply: FastifyReply
     try {
        
         const getDetailsPetUseCase = makeGetDetailsPetUseCase();
-        const pet = await getDetailsPetUseCase.execute({ id });
-
+        const  pet = await getDetailsPetUseCase.execute({ id });
+        
         return pet;
 
     } catch (error) {

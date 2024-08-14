@@ -6,6 +6,7 @@ import { z } from "zod";
 
 export async function fetchListPets(request: FastifyRequest, reply: FastifyReply) {
 
+
     const fetchListPetsQuerySchema = z.object({
         city: z.string(),
         size: z.string().optional(), 
@@ -13,16 +14,17 @@ export async function fetchListPets(request: FastifyRequest, reply: FastifyReply
         type: z.string().optional(),
         energy: z.string().optional(), 
         independence: z.string().optional(), 
-        environment: z.string().optional()
+        environment: z.string().optional(),
+        page: z.coerce.number().min(1).default(1)
     });
 
-    const { city, age, type, size, energy, environment, independence } = fetchListPetsQuerySchema.parse(request.query);
+    const { city, age, type, size, energy, environment, independence, page } = fetchListPetsQuerySchema.parse(request.query);
 
     try {       
         const fetchListPetsUseCase = makeFetchListPetsUseCase();
         const pets = await fetchListPetsUseCase.execute({ 
-            city, age, type, size, energy, environment, independence
-        });
+            city, age, type, size, energy, environment, independence, page
+        },);
 
         return pets;
 

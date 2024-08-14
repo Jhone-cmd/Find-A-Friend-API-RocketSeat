@@ -7,10 +7,12 @@ import { ResourceNotFoundError } from "@/errors/resource-not-found-error";
 import { PetNameAlreadyExistsError } from "@/errors/pet-name-already-exists-error";
 import { InvalidRequestError } from "@/errors/invalid-request-error";
 import { InMemoryImageRepository } from "@/repositories/in-memory/in-memory-image-repository";
+import { InMemoryRequirementRepository } from "@/repositories/in-memory/in-memory-requirement-repository";
 
 let petRepository: InMemoryPetRepository;
 let organizationRepository: InMemoryOrganizationRepository;
 let imageRepository: InMemoryImageRepository;
+let requirementRepository: InMemoryRequirementRepository;
 let sut: CreatePetUseCase;
 
 describe('Create Pet Use Case', () => {
@@ -18,8 +20,9 @@ describe('Create Pet Use Case', () => {
     beforeEach(() => {        
         organizationRepository = new InMemoryOrganizationRepository();
         imageRepository = new InMemoryImageRepository();
+        requirementRepository = new InMemoryRequirementRepository();
         petRepository = new InMemoryPetRepository(organizationRepository);
-        sut = new CreatePetUseCase(petRepository, organizationRepository, imageRepository);
+        sut = new CreatePetUseCase(petRepository, organizationRepository, imageRepository, requirementRepository);
     });
 
     it('should be able to create pet', async () => {
@@ -35,7 +38,7 @@ describe('Create Pet Use Case', () => {
             phone: '99 99999999',
             latitude: -16.0366592,
             longitude: -48.0509952
-        });       
+        });    
 
         const images = [
             {
@@ -55,7 +58,7 @@ describe('Create Pet Use Case', () => {
             type: 'dog',
             energy: 'high',
             environment: 'broad',
-            requirements: 'requisito obrigatório',
+            requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
             size: 'small',
             independence: 'high',
             organizationId: organization.id,
@@ -76,7 +79,7 @@ describe('Create Pet Use Case', () => {
                 type: 'dog',
                 energy: 'high',
                 environment: 'broad',
-                requirements: 'requisito obrigatório',
+                requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
                 size: 'small',
                 independence: 'high',
                 images: [],
@@ -100,6 +103,7 @@ describe('Create Pet Use Case', () => {
             latitude: -16.0366592,
             longitude: -48.0509952
         });
+
         const images = [
             {
                 id: "1",
@@ -118,7 +122,7 @@ describe('Create Pet Use Case', () => {
             type: 'dog',
             energy: 'high',
             environment: 'broad',
-            requirements: 'requisito obrigatório',
+            requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
             size: 'small',
             independence: 'high',
             organizationId: organization.id,
@@ -134,7 +138,7 @@ describe('Create Pet Use Case', () => {
                 type: 'dog',
                 energy: 'high',
                 environment: 'broad',
-                requirements: 'requisito obrigatório',
+                requirements: JSON.stringify(['Requisito 1', 'Requisito 2']),
                 size: 'small',
                 independence: 'high',
                 organizationId: organization.id,
@@ -167,7 +171,7 @@ describe('Create Pet Use Case', () => {
                 type: 'dog',
                 energy: 'high',
                 environment: 'broad',
-                requirements: 'requisito obrigatório',
+                requirements: '',
                 size: 'small',
                 independence: 'high',
                 images: [],

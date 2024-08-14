@@ -28,40 +28,11 @@ export async function createAndAuthenticateOrganizationAndPet(app: FastifyInstan
             type: 'dog',
             energy: 'high',
             environment: 'broad',
-            requirements: 'requisito obrigatório',
             size: 'small',
             independence: 'high',
-            organizationId: org1.id
+            organizationId: org1.id,
         }
     })
-
-    // const pets = await prisma.pet.createMany({
-    //     data: [
-    //     {
-    //         name: 'Pet 1',
-    //         about: 'pet de teste',
-    //         age: 'child',
-    //         type: 'dog',
-    //         energy: 'high',
-    //         environment: 'broad',
-    //         requirements: 'requisito obrigatório',
-    //         size: 'small',
-    //         independence: 'high',
-    //         organizationId: org1.id
-    //     }, 
-    //     {
-    //         name: 'Pet 2',
-    //         about: 'pet de teste',
-    //         age: 'child',
-    //         type: 'dog',
-    //         energy: 'high',
-    //         environment: 'broad',
-    //         requirements: 'requisito obrigatório',
-    //         size: 'small',
-    //         independence: 'high',
-    //         organizationId: org1.id
-    //     }]
-    // });
 
     const authResponse = await request(app.server)
         .post('/sessions')

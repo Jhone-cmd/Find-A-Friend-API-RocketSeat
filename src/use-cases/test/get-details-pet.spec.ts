@@ -8,7 +8,7 @@ let petRepository: InMemoryPetRepository;
 let organizationRepository: InMemoryOrganizationRepository;
 let sut: GetDetailsPetUseCase;
 
-describe('Create Pet Use Case', () => {
+describe('Get Details Pet Use Case', () => {
 
     beforeEach(() => {   
         organizationRepository = new InMemoryOrganizationRepository();
@@ -39,7 +39,6 @@ describe('Create Pet Use Case', () => {
             type: 'dog',
             energy: 'high',
             environment: 'broad',
-            requirements: 'requisito obrigatório',
             size: 'small',
             independence: 'high',
             organizationId: organization.id

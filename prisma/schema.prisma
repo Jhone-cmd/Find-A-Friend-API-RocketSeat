@@ -33,17 +33,17 @@ model Organization {
 }
 
 model Pet {
-  id           String  @id @default(uuid())
+  id           String        @id @default(uuid())
   name         String
   about        String
   age          String
   type         String
-  requirements String
   independence String
   environment  String
   size         String
   energy       String
   photo        String?
+  requirements Requirement[]
   images       Image[]
 
   organizationId String       @map("organization_id")
@@ -61,4 +61,14 @@ model Image {
   image Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
 
   @@map("images")
+}
+
+model Requirement {
+  id          String @id @default(uuid())
+  requirement String
+  petId       String
+
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@map("requirements")
 }

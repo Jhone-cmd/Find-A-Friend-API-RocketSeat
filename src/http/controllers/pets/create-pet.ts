@@ -19,11 +19,11 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
         energy: z.enum(["low","moderate","high"]).default("moderate"),
         environment: z.enum(["small", "broad"]).default("broad"),
         independence: z.enum(["low","moderate","high"]).default("high"),
-        requirements: z.string()
+        requirements: z.string(),
     });
 
     const { orgId } = createPetParamsSchema.parse(request.params);
-    const { name, about, age, type, size, energy, environment, independence, requirements } = createPetBodySchema.parse(request.body);
+    const { name, about, age, type, size, energy, environment, independence, requirements  } = createPetBodySchema.parse(request.body);
 
     const images: FilePath[] = request.files ? request.files
         .map((file) => ({ url: file.path ?? ""})) : [];
@@ -31,7 +31,7 @@ export async function createPet(request: FastifyRequest, reply: FastifyReply) {
     const photo = images.length > 0 ? images[0].url : null;
 
     try {
-       
+        
        const createPetUseCase = makeCreatePetUseCase();
        await createPetUseCase.execute({
             name, about, age, type, size, energy, environment, independence, requirements, 

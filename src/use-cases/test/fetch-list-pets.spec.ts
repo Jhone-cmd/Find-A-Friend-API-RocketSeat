@@ -32,37 +32,30 @@ describe('List Pets Use Case', () => {
             latitude: -16.0366592,
             longitude: -48.0509952
         });
-        
-        await petRepository.create({
-            name: `Pet 1`,
-            about: 'pet de teste',
-            age: 'child',
-            type: 'dog',
-            energy: 'high',
-            environment: 'broad',
-            requirements: 'requisito obrigatório',
-            size: 'small',
-            independence: 'high',
-            organizationId: organization.id
-        });  
-        
-        await petRepository.create({
-            name: `Pet 2`,
-            about: 'pet de teste',
-            age: 'child',
-            type: 'dog',
-            energy: 'high',
-            environment: 'broad',
-            requirements: 'requisito obrigatório',
-            size: 'small',
-            independence: 'high',
-            organizationId: organization.id
-        });  
+        for(let i = 1; i <= 22; i++) {
+            await petRepository.create({
+                name: `Pet ${i}`,
+                about: 'pet de teste',
+                age: 'child',
+                type: 'dog',
+                energy: 'high',
+                environment: 'broad',
+                size: 'small',
+                independence: 'high',
+                organizationId: organization.id
+            }); 
+        }
+         
         
         const { pets } = await sut.execute({
-            city: organization.city
+            city: organization.city,
+            page: 2 
         });
         
         expect(pets).toHaveLength(2);
+        expect(pets).toEqual([
+            expect.objectContaining({ name: "Pet 21" }),
+            expect.objectContaining({ name: "Pet 22" })
+        ])
     });
 });

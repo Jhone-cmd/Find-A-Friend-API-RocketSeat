@@ -1,4 +1,3 @@
-import { OrganizationRepository } from "@/interfaces/organization-interfaces";
 import { FiltersPets, PetRepository } from "@/interfaces/pet-interfaces";
 import { Pet, Prisma } from "@prisma/client";
 import { randomUUID } from "node:crypto";
@@ -20,7 +19,7 @@ export class InMemoryPetRepository implements PetRepository {
         return pet;
     }
 
-    async findByManyPets(query: FiltersPets) {
+    async findByManyPets(query: FiltersPets, page: number) {
         
         const organizationByCity = this.organizationRepository.organizations
             .filter((item) => item.city === query.city);
@@ -33,7 +32,7 @@ export class InMemoryPetRepository implements PetRepository {
             .filter((item) => (query.energy ? item.energy === query.energy : true))
             .filter((item) => (query.independence ? item.independence === query.independence : true))
             .filter((item) => (query.environment ? item.environment === query.environment : true))
-            //.slice((page - 1) * 20, page * 20);
+            .slice((page - 1) * 20, page * 20);
 
         return pet;
     }

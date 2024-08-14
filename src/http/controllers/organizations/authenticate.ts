@@ -21,7 +21,21 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
             }
         });
 
-        return reply.status(200).send({ token });
+        const refreshToken = await reply.jwtSign({}, {
+            sign: {
+                sub: organization.id,
+                expiresIn: '7d'
+            }
+        })
+
+        return reply
+            .setCookie('refreshToken', refreshToken, {
+                path: '/',
+                httpOnly: true,
+                secure: true,
+                sameSite: true,
+            })
+            .status(200).send({ token });
         
    } catch (error) {
         if (error instanceof InvalidCredentialsError) {
