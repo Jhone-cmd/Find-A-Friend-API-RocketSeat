@@ -4,7 +4,7 @@ export interface PetRepository {
     create(data: Prisma.PetUncheckedCreateInput): Promise<Pet>;
     findByName(name: string): Promise<Pet  | null>;
     findByManyPets(query: FiltersPets, page: number): Promise<Pet[]>;
-    findById(id: string): Promise<Pet | null>;
+    findById(id: string): Promise<Pet | null>
 }
 
 export interface FiltersPets {
@@ -16,7 +16,6 @@ export interface FiltersPets {
     independence?: string,
     environment?: string,
 }
-
 export interface FilePath {
     url: string | null
 }

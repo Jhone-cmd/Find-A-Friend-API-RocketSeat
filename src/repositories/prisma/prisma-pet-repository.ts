@@ -25,7 +25,7 @@ export class PrismaPetRepository implements PetRepository {
                     city: {
                         contains: query.city,
                         mode: 'insensitive'
-                    }
+                    },
                 }
             },
             take: 20,
@@ -36,8 +36,27 @@ export class PrismaPetRepository implements PetRepository {
     }
 
     async findById(id: string) {
-        const pet = await prisma.pet.findUnique({
-            where: { id }
+        const pet = await prisma.pet.findFirst({
+            where: { id },
+            select: {
+                id: true,
+                name: true,
+                about: true,
+                age: true,
+                type: true,
+                size: true,
+                energy: true,
+                independence: true,
+                environment: true,
+                photo: true,
+                organizationId: true,
+                organization: {
+                    select: { 
+                        phone: true
+                    }
+                }
+            }
+            
         });
         if (!pet) return null;
 

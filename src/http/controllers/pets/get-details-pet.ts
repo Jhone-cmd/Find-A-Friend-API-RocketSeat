@@ -15,10 +15,9 @@ export async function getDetailsPet(request: FastifyRequest, reply: FastifyReply
     try {
        
         const getDetailsPetUseCase = makeGetDetailsPetUseCase();
-        const  pet = await getDetailsPetUseCase.execute({ id });
-        
+        const pet  = await getDetailsPetUseCase.execute({ id });
         return pet;
-
+        
     } catch (error) {
         if (error instanceof ResourceNotFoundError) {
             return reply.code(404).send({ message: error.message });
